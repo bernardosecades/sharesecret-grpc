@@ -114,7 +114,7 @@ You can execute all tests or by type:
 make test-all
 make test-unit
 make test-integration
-make e2e
+make test-e2e
 ```
 
 # Makefile
