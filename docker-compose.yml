@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: berni
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: sharesecret
+
+    volumes:
+      - "./schema.sql:/docker-entrypoint-initdb.d/schema.sql"
+  service:
+    build:
+      context: .
+      target: builder # it'll use the same Dockerfile as prod, but stop at the builder stage to can execute go test
+    environment:
+      SHARESECRET_SERVER_PROTOCOL: tcp
+      SHARESECRET_SERVER_HOST: localhost
+      SHARESECRET_SERVER_PORT: 3333
+      SECRET_KEY: 11111111111111111111111111111111
+      SECRET_PASSWORD: "@myPassword"
+      DB_NAME: sharesecret
+      DB_USER: berni
+      DB_PASS: 1234
+      DB_HOST: mysql
+      DB_PORT: 3306
+    restart: always
+    ports:
+      - 3333:3333
+    links:
+      - mysql

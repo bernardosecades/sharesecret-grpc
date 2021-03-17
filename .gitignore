@@ -1,0 +1,5 @@
+.idea
+cover.out
+cmd/purge/purge
+cmd/client/client
+cmd/server/server
