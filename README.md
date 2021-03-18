@@ -6,7 +6,9 @@ If you share some text will be display it once and then delete it. After that it
 
 We keep secrets for up to 5 days.
 
-`Note`: project based on https://onetimesecret.com to learn go, grpc and grpc gateway
+`Note`: project based on https://onetimesecret.com to learn go, grpc and grpc gateway. 
+
+My first version was https://github.com/bernardosecades/sharesecret (I improve transport layer, tests, logic encapsulation, structure folder, makefile, ...)
 
 ## Why should I trust you?
 
@@ -104,6 +106,42 @@ Only you will need execute:
 
 ```bash
 make up
+```
+
+Open BloomRPC (install https://github.com/uw-labs/bloomrpc), import file ./proto/secret.proto and use `0.0.0.0:3333`
+
+Example parameters to create a secret without password:
+
+```json
+{
+  "content": "this is my secret"
+}
+```
+
+Example parameters to create a secret with password:
+
+```json
+{
+  "content": "this is my secret",
+  "password": "myPass"
+}
+```
+
+To read a secret without password:
+
+```json
+{
+  "id": "<ID response create secret>"
+}
+```
+
+To read a secret with password:
+
+```json
+{
+  "id": "<ID response create secret>",
+  "password": "<Password used to encrypt the secret created>"
+}
 ```
 
 # Run tests
