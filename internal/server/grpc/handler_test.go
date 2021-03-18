@@ -73,6 +73,11 @@ func TestCreateAndSeeSecretWithoutPassword(t *testing.T) {
 	}
 
 	assert.Equal(t, "This is my secret", resp2.GetContent())
+
+	resp3, err3 := client.SeeSecret(ctx, &sharesecretgrpc.SeeSecretRequest{Id: resp1.GetId()})
+
+	assert.Nil(t, resp3)
+	assert.NotNil(t, err3)
 }
 
 func TestCreateAndSeeSecretWithPassword(t *testing.T) {
@@ -97,4 +102,9 @@ func TestCreateAndSeeSecretWithPassword(t *testing.T) {
 	}
 
 	assert.Equal(t, "This is my secret", resp2.GetContent())
+
+	resp3, err3 := client.SeeSecret(ctx, &sharesecretgrpc.SeeSecretRequest{Id: resp1.GetId(), Password: "1234"})
+
+	assert.Nil(t, resp3)
+	assert.NotNil(t, err3)
 }
